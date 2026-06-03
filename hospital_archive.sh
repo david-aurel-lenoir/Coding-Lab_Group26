@@ -35,7 +35,7 @@ archive_logs() {
     done
 
     echo "---------------------------------------------"
-    echo " Archiving Complete. System is live."
+    echo " Archiving Complete. System is live and ready."
     echo "---------------------------------------------"
 }
 
