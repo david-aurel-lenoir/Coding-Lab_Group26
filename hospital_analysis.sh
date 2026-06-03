@@ -1,5 +1,6 @@
 #!/bin/bash
-
+# Author: Member 6 - Facility Auditor
+# Date: 2026-06-03
 # =============================================
 # Member 6 - Facility Auditor
 # Function: water_audit
