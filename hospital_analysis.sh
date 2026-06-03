@@ -13,3 +13,11 @@ process_vitals() {
 
 # Call the function
 process_vitals
+
+# Check if log files exist before scanning
+check_logs() {
+    if [ ! -f "active_logs/heart_rate.log" ] || [ ! -f "active_logs/temperature.log" ]; then
+        echo "Log files not found. Please run the hospital engine first."
+        exit 1
+    fi
+}
