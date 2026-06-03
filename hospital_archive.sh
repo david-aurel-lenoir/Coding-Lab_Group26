@@ -10,7 +10,7 @@ archive_logs() {
     TIMESTAMP=$(date +"%Y%m%d_%H%M")
 
     echo "---------------------------------------------"
-    echo " KNH Log Archiving Started"
+    echo " KNH Log Archiving Started - Member 4"
     echo " Timestamp: $TIMESTAMP"
     echo "---------------------------------------------"
 
