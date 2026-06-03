@@ -26,3 +26,12 @@ initialize_system() {
 
     echo "  All directories are ready.              "
 }
+cat >> hospital_admin.sh << 'EOF'
+
+secure_data() {
+    echo "  Securing active_logs directory...  "
+    chmod 600 active_logs
+    echo "  Permissions updated successfully!  "
+    ls -l
+}
+EOF
