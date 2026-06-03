@@ -1,4 +1,10 @@
+
+
 #!/bin/bash
+# KNH Hospital Admin Script
+# Member 1: initialize_system() - creates required directories
+# Member 2: secure_data() - sets permissions on active_logs
+# Member 3: Orchestration - calls functions in order and confirms setup
 
 # Member 1 - The Architect
 initialize_system() {
