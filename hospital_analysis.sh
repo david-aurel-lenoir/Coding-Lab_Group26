@@ -1,11 +1,25 @@
 #!/bin/bash
-# Author: Member 6 - Facility Auditor
-# Date: 2026-06-03
-# =============================================
-# Member 6 - Facility Auditor
-# Function: water_audit
-# =============================================
 
+# Member 5 - Clinical Analyst
+process_vitals() {
+    echo "Scanning for CRITICAL alerts..."
+
+    grep "CRITICAL" active_logs/heart_rate.log active_logs/temperature.log | \
+    awk -F',' '{print $1, $2, $3}' > reports/critical_alerts.txt
+
+    echo "Critical alerts saved to reports/critical_alerts.txt"
+    cat reports/critical_alerts.txt
+}
+
+# Check if log files exist before scanning
+check_logs() {
+    if [ ! -f "active_logs/heart_rate.log" ] || [ ! -f "active_logs/temperature.log" ]; then
+        echo "Log files not found. Please run the hospital engine first."
+        exit 1
+    fi
+}
+
+# Member 6 - Facility Auditor
 water_audit() {
     LOG_FILE="active_logs/water_usage.log"
 
@@ -38,5 +52,6 @@ water_audit() {
     ' "$LOG_FILE"
 }
 
-# Call the function
+# Call the functions
+process_vitals
 water_audit
