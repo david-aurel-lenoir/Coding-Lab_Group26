@@ -8,21 +8,21 @@
 
 # Member 1 - The Architect
 initialize_system() {
-    echo "  KNH System Initialization Starting...  "
+    echo "  KNH System Initialization Starting "
     if [ ! -d "active_logs" ]; then
-        echo "Creating active_logs directory..."
+        echo "Creating active_logs directory"
         mkdir active_logs
     else
         echo "active_logs already exists. "
     fi
     if [ ! -d "archived_logs" ]; then
-        echo "Creating archived_logs directory..."
+        echo "Creating archived_logs directory"
         mkdir archived_logs
     else
         echo "archived_logs already exists. "
     fi
     if [ ! -d "reports" ]; then
-        echo "Creating reports directory..."
+        echo "Creating reports directory"
         mkdir reports
     else
         echo "reports already exists. "
@@ -42,3 +42,4 @@ secure_data() {
 initialize_system
 secure_data
 echo "System Environment Secured - $(date)"
+
