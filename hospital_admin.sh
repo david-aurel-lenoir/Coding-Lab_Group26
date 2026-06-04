@@ -1,6 +1,7 @@
 #!/bin/bash
 
 initialize_system() {
+
 	    echo "  KNH System Initialization Starting  "
 
 	        if [ ! -d "active_logs" ]; then
@@ -26,3 +27,5 @@ initialize_system() {
 
 																					    echo "  All directories are ready              "
 																				    }
+
+
