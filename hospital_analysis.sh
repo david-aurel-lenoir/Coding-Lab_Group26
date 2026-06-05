@@ -1,26 +1,57 @@
 #!/bin/bash
 
-# Script: hospital_analysis.sh
-# Member 5: Clinical Analyst
-# Function: process_vitals()
-# Purpose: This function scans through
-#          the heart rate and temperature
-#          log files inside active_logs/
-#          It searches for any row marked
-#          as CRITICAL using grep.
-#          It then extracts the Timestamp,
-#          Device_ID and Value using awk
-#          and saves them into
-#          reports/critical_alerts.txt
-
+# Member 5 - Clinical Analyst
 process_vitals() {
-    echo "Processing critical vitals"
+    echo "Scanning for CRITICAL alerts..."
 
-    grep "CRITICAL" active_logs/heart_rate.log | awk -F',' '{print "Heart Rate | Timestamp:" $1 " | Device:" $2 " | Value:" $3}' >> reports/critical_alerts.txt
+    grep "CRITICAL" active_logs/heart_rate.log active_logs/temperature.log | \
+    awk -F',' '{print $1, $2, $3}' > reports/critical_alerts.txt
 
-    grep "CRITICAL" active_logs/temperature.log | awk -F',' '{print "Temperature | Timestamp:" $1 " | Device:" $2 " | Value:" $3}' >> reports/critical_alerts.txt
-
-    echo "Critical alerts saved in reports/critical_alerts.txt"
+    echo "Critical alerts saved to reports/critical_alerts.txt"
+    cat reports/critical_alerts.txt
 }
 
+# Check if log files exist before scanning
+check_logs() {
+    if [ ! -f "active_logs/heart_rate.log" ] || [ ! -f "active_logs/temperature.log" ]; then
+        echo "Log files not found. Please run the hospital engine first."
+        exit 1
+    fi
+}
+
+# Member 6 - Facility Auditor
+water_audit() {
+    LOG_FILE="active_logs/water_usage.log"
+
+    if [ ! -f "$LOG_FILE" ]; then
+        echo "ERROR: Water usage log not found at $LOG_FILE"
+        return 1
+    fi
+
+    echo "Running water audit..."
+
+    awk -F',' '
+        $2 == "ICU_WATER_RESERVE" {
+            total += $3
+            count++
+        }
+        END {
+            if (count == 0) {
+                print "No ICU_WATER_RESERVE data found."
+            } else {
+                avg = total / count
+                printf "=========================================\n"
+                printf "     KNH WATER USAGE AUDIT REPORT\n"
+                printf "=========================================\n"
+                printf "  Device         : ICU_WATER_RESERVE\n"
+                printf "  Total Readings : %d\n", count
+                printf "  Average Usage  : %.2f Liters\n", avg
+                printf "=========================================\n"
+            }
+        }
+    ' "$LOG_FILE"
+}
+
+# Call the functions
 process_vitals
+water_audit
